@@ -8,7 +8,8 @@ from prettyprinter import pprint
 class ReadFaces:
     CONF_FILE_NAME = 'test.json'
 
-    CONF_FILE_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'models')
+    CONF_FILE_PATH = os.path.join(os.path.dirname(
+        os.path.abspath(__file__)), 'models')
 
     @classmethod
     def loadconf(cls) -> dict:
@@ -37,9 +38,11 @@ class ReadFaces:
         :return: 返回反序列化之后的data
         """
         filename = os.path.join(cls.CONF_FILE_PATH, cls.CONF_FILE_NAME)
-
-        with open(filename, 'r', encoding='utf-8') as f:
-            data = json.load(f)
+        try:
+            with open(filename, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+        except Exception:
+            data = []
         return data
 
     @classmethod
